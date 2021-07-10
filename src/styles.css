@@ -1,11 +1,16 @@
-.container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -205px;
-  margin-left: -300px;
+.div-container {
+  width: 100%;
   max-width: 600px;
-  max-height: 410px;
+  max-height: 400px;
+  margin-top: 100px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container {
+  display: block;
+  width: 600px;
+  height: 400px;
   border: solid 3px #10828c;
   border-radius: 30px;
   background: #fceabb;
@@ -73,9 +78,9 @@
 }
 
 .weather-left {
-  max-width: 400px;
-  max-height: 400px;
-  padding: 20px 10px 20px 20px;
+  width: 360px;
+  height: 380px;
+  padding: 20px 10px 0px 20px;
   float: left;
 }
 
@@ -94,7 +99,8 @@ h3 {
 
 h3,
 .row,
-.quote {
+.quote,
+.foot-note {
   font-family: "Red Hat Text", sans-serif;
   color: #0e3047;
 }
@@ -137,7 +143,8 @@ li .temperature-low,
 .precipitation,
 .humidity,
 .wind,
-.quote {
+.quote,
+.foot-note {
   font-size: 12px;
 }
 
@@ -163,10 +170,9 @@ li .temperature-low,
 
 .weather-right {
   display: block;
-  margin: 0px 10px 0px 0px;
-  max-width: 200px;
-  max-height: 400px;
-  float: right;
+  width: 184px;
+  height: 400px;
+  float: left;
 }
 
 .day-m {
@@ -200,19 +206,19 @@ ul img {
 .forecast-3,
 .forecast-4 {
   margin: 10px 10px 10px 0px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 10px 0px 15px;
   width: 150px;
 }
 
 .forecast-1 {
   margin: 5px 10px 10px 0px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 10px 0px 15px;
   width: 150px;
 }
 
 .forecast-5 {
   margin: 5px 10px 10px 0px;
-  padding: 0px 0px 0px 10px;
+  padding: 0px 10px 0px 15px;
   width: 150px;
 }
 .forecast-1:hover,
@@ -223,7 +229,16 @@ ul img {
   background-color: #ffe6a6;
   box-shadow: 0 4px 8px 0 rgba(134, 134, 134, 0.2),
     0 6px 20px 0 rgba(122, 122, 122, 0.19);
-  padding: 0px 0px 0px 10px;
+  padding: 0px 10px 0px 15px;
   border-radius: 20px;
   transition: ease-in-out 150ms;
+}
+
+.foot-note {
+  margin: 0px 10px;
+}
+
+a {
+  color: coral;
+  text-decoration: none;
 }
