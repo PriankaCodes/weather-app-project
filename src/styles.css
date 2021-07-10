@@ -1,0 +1,229 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -205px;
+  margin-left: -300px;
+  max-width: 600px;
+  max-height: 410px;
+  border: solid 3px #10828c;
+  border-radius: 30px;
+  background: #fceabb;
+  background: -webkit-linear-gradient(right, #ffd561, #fff1cd);
+  background: linear-gradient(right, #ffd561, #fff1cd);
+}
+
+#city-name {
+  width: 240px;
+  margin-top: 10px;
+  font-family: "Red Hat Text", sans-serif;
+  border: solid 1px #0e3047;
+  border-radius: 2px;
+}
+
+#go-button {
+  font-family: "Red Hat Text", sans-serif;
+  background-color: #10828c;
+  color: white;
+  padding: 1px 6px;
+  border: solid 1px #0e3047;
+  border-radius: 2px;
+  font-family: "Red Hat Text", sans-serif;
+  cursor: pointer;
+}
+
+#current-button {
+  font-family: "Red Hat Text", sans-serif;
+  background-color: #10828c;
+  color: white;
+  padding: 1px 6px;
+  border: solid 1px #0e3047;
+  border-radius: 2px;
+  font-family: "Red Hat Text", sans-serif;
+  cursor: pointer;
+}
+
+#go-button:hover,
+#current-button:hover {
+  background-color: white;
+  color: #0e3047;
+}
+
+.temperature-c-change {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 22px;
+  color: #0e3047;
+}
+
+.temperature-c-change:visited,
+.temperature-c-change:hover {
+  color: grey;
+}
+
+.temperature-f-change {
+  color: grey;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.temperature-f-change:visited,
+.temperature-f-change:hover {
+  color: #0e3047;
+}
+
+.weather-left {
+  max-width: 400px;
+  max-height: 400px;
+  padding: 20px 10px 20px 20px;
+  float: left;
+}
+
+h1 {
+  font-family: "Aclonica", sans-serif;
+  font-size: 40px;
+  color: #10828c;
+  margin: 20px 0px 10px 0px;
+}
+
+h3 {
+  margin-top: -10px;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+h3,
+.row,
+.quote {
+  font-family: "Red Hat Text", sans-serif;
+  color: #0e3047;
+}
+
+p {
+  text-align: center;
+}
+.temperature-main {
+  font-size: 60px;
+  font-family: "Aclonica", sans-serif;
+  color: #10828c;
+}
+
+.forecast-main {
+  margin: 0px;
+  list-style-type: none;
+  padding-inline-start: 0;
+  padding: 0px 10px;
+  width: 150px;
+  font-family: "Aclonica", sans-serif;
+  color: #10828c;
+}
+.temperature-high-main,
+.temperature-low-main,
+.temperature-f-change,
+.temperature-c-change,
+.temp-divide {
+  font-size: 18px;
+  font-family: "Red Hat Text", sans-serif;
+}
+
+.weather-type,
+.forecast {
+  font-size: 22px;
+  font-family: "Red Hat Text", sans-serif;
+}
+
+li .temperature-high,
+li .temperature-low,
+.precipitation,
+.humidity,
+.wind,
+.quote {
+  font-size: 12px;
+}
+
+.row {
+  display: inline-block;
+  margin-top: -6px;
+}
+
+.col-r,
+.col-l {
+  text-align: right;
+  float: left;
+  margin-top: -7px;
+}
+
+.col-l {
+  width: 135px;
+}
+
+.quote {
+  margin: 10px 0px;
+}
+
+.weather-right {
+  display: block;
+  margin: 0px 10px 0px 0px;
+  max-width: 200px;
+  max-height: 400px;
+  float: right;
+}
+
+.day-m {
+  padding-right: 4.72px;
+}
+
+.day-t {
+  padding-right: 10.84px;
+}
+.day-w {
+  padding-right: 4.62px;
+}
+.day-f {
+  padding-right: 11px;
+}
+
+ul img {
+  vertical-align: middle;
+}
+
+.forecast {
+  list-style-type: none;
+  display: inline-block;
+  padding-top: 5px;
+  padding-inline-start: 10px;
+  vertical-align: middle;
+  color: #0e3047;
+}
+
+.forecast-2,
+.forecast-3,
+.forecast-4 {
+  margin: 10px 10px 10px 0px;
+  padding: 0px 0px 0px 10px;
+  width: 150px;
+}
+
+.forecast-1 {
+  margin: 5px 10px 10px 0px;
+  padding: 0px 0px 0px 10px;
+  width: 150px;
+}
+
+.forecast-5 {
+  margin: 5px 10px 10px 0px;
+  padding: 0px 0px 0px 10px;
+  width: 150px;
+}
+.forecast-1:hover,
+.forecast-2:hover,
+.forecast-3:hover,
+.forecast-4:hover,
+.forecast-5:hover {
+  background-color: #ffe6a6;
+  box-shadow: 0 4px 8px 0 rgba(134, 134, 134, 0.2),
+    0 6px 20px 0 rgba(122, 122, 122, 0.19);
+  padding: 0px 0px 0px 10px;
+  border-radius: 20px;
+  transition: ease-in-out 150ms;
+}
