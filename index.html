@@ -1,14 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="stylesheet" href="styles.css" />
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Prianka's Weather App</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aclonica&family=Red+Hat+Text:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
-  <h1>Happy Coding</h1>
-  <body>
-    <script src="script.js"></script>
+  <body class="div-container">
+    <div class="container">
+      <div class="weather-left">
+        <form id="search-city">
+          <input
+            type="search"
+            name="cities"
+            id="city-name"
+            placeholder="Search a City"
+          />
+          <input type="submit" value="Go" id="go-button" />
+          <input type="button" value="Current" id="current-button" />
+        </form>
+        <h1 class="city-name">Melbourne</h1>
+        <h3 class="day" id="today">
+          Sunday
+          <span class="date-month">I 20th June</span>
+          <span class="time">@ 14:02</span>
+        </h3>
+        <div class="row">
+          <div class="col-r">
+            <img
+              src="images/partly-cloudy.png"
+              width="190"
+              alt="Partly Cloudy"
+              id="main-image"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-l">
+            <div class="weather-type">Partly Cloudy</div>
+            <div class="temperature-main" id="temperature-main">15°C</div>
+            <span class="temperature-high-main" id="temperature-high-main"
+              >H:5°
+            </span>
+            <span class="temperature-low-main" id="temperature-low-main"
+              >L:5°</span
+            >
+            <div>
+              <a href="#" class="temperature-c-change" id="celcius-switch"
+                >°C
+              </a>
+              <span class="temp-divide">I</span>
+              <a href="#" class="temperature-f-change" id="fahrenheit-switch"
+                >°F</a
+              >
+            </div>
+            <div class="precipitation"></div>
+            <div class="humidity">Humidity: 84%</div>
+            <div class="wind">Wind: 5 km/h</div>
+          </div>
+        </div>
+        <p class="quote" id="quote">
+          Sunscreen is your best friend, don't forget about it.
+        </p>
+      </div>
+      <div class="weather-right">
+        <ul class="forecast-main">
+          <li class="forecast-1">
+            <span class="day-m" id="tomorrow">M</span>
+            <img src="images/Sunny.png" width="70" alt="Sunshine" />
+            <ul class="forecast">
+              <li class="temperature-high">15°C</li>
+              <li class="temperature-low">4°C</li>
+            </ul>
+          </li>
+          <li class="forecast-2">
+            <span class="day-t" id="third-day">T</span>
+            <img
+              src="images/partly-cloudy.png"
+              width="70"
+              alt="Partly Cloudy"
+            />
+            <ul class="forecast">
+              <li class="temperature-high">16°C</li>
+              <li class="temperature-low">10°C</li>
+            </ul>
+          </li>
+          <li class="forecast-3">
+            <span class="day-w" id="fourth-day">W</span>
+            <img src="images/rain.png" width="70" alt="Rain" />
+            <ul class="forecast">
+              <li class="temperature-high">14°C</li>
+              <li class="temperature-low">11°C</li>
+            </ul>
+          </li>
+          <li class="forecast-4">
+            <span class="day-th" id="fifth-day">Th</span>
+            <img src="images/Thunderstorm.png" width="70" alt="Thunderstorms" />
+            <ul class="forecast">
+              <li class="temperature-high">14°C</li>
+              <li class="temperature-low">9°C</li>
+            </ul>
+          </li>
+          <li class="forecast-5">
+            <span class="day-f" id="sixth-day">F</span>
+            <img src="images/cloudy.png" width="70" alt="Cloudy" />
+            <ul class="forecast">
+              <li class="temperature-high">13°C</li>
+              <li class="temperature-low">8°C</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script src="src/script.js"></script>
   </body>
 </html>
