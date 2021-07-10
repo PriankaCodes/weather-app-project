@@ -140,6 +140,8 @@ function showLocation() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
+showLocation();
+
 let now = new Date();
 today(new Date());
 
