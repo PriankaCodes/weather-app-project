@@ -47,7 +47,13 @@ function today() {
   let month = months[now.getMonth()];
   let date = now.getDate();
   let hour = now.getHours();
-  let minutes = (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
   let todaysDate = document.querySelector("#today");
   todaysDate.innerHTML = `${day} I ${date} ${month} @ ${hour}:${minutes}`;
 }
