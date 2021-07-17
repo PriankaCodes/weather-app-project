@@ -101,7 +101,7 @@ function showTemperature(response) {
   changeImage();
 
   function changeImage() {
-    if (tempDes === `Scattered Clouds`|| tempDes === `Broken Clouds` ) {
+    if (tempDes === `Scattered Clouds` || tempDes === `Broken Clouds`) {
       let img = document.querySelector("#main-image");
       img.src = "images/cloudy.png";
       let quote = document.querySelector("#quote");
@@ -133,6 +133,7 @@ function showTemperature(response) {
       quote.innerHTML = `Let the Sun out`;
     }
   }
+}
 
 function showPosition(position) {
   let loc = position.coords;
@@ -152,7 +153,6 @@ function showLocation() {
 
 search("Japan");
 
-let now = new Date();
 today(new Date());
 
 let cities = document.querySelector("#search-city");
