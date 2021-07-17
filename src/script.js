@@ -101,36 +101,92 @@ function showTemperature(response) {
   changeImage();
 
   function changeImage() {
-    if (tempDes === `Scattered Clouds` || tempDes === `Broken Clouds`) {
+    if (tempDes === `scattered clouds` || tempDes === `broken clouds`) {
       let img = document.querySelector("#main-image");
-      img.src = "images/cloudy.png";
+      img.src = "images/scattered-clouds.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Cloudy skies, with no chance of meatballs.`;
-    } else if (tempDes === `Shower Rain` || tempDes === `Rain`) {
+    } else if (
+      tempDes === `shower rain` ||
+      tempDes === `rain` ||
+      tempDes === `light rain` ||
+      tempDes === `moderate rain` ||
+      tempDes === `heavy intensity rain` ||
+      tempDes === `very heavy rain` ||
+      tempDes === `extreme rain` ||
+      tempDes === `light intensity shower rain` ||
+      tempDes === `heavy intensity shower rain` ||
+      tempDes === `ragged shower rain`
+    ) {
       let img = document.querySelector("#main-image");
       img.src = "images/rain.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Rain rain go away, come again another day.`;
-    } else if (tempDes === `Clear Sky`) {
+    } else if (tempDes === `clear sky`) {
       let img = document.querySelector("#main-image");
-      img.src = "images/Sunny.png";
+      img.src = "images/clear-day.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Clear skies, sounds like my kind of day.`;
-    } else if (tempDes === `Thunderstorm`) {
+    } else if (
+      tempDes === `thunderstorm` ||
+      tempDes === `thunderstorm with light rain` ||
+      tempDes === `thunderstorm with rain` ||
+      tempDes === `thunderstorm with heavy rain` ||
+      tempDes === `light thunderstorm` ||
+      tempDes === `heavy thunderstorm` ||
+      tempDes === `ragged thunderstorm` ||
+      tempDes === `thunderstorm with light drizzle` ||
+      tempDes === `thunderstorm with drizzle` ||
+      tempDes === `thunderstorm with heavy drizzle`
+    ) {
       let img = document.querySelector("#main-image");
-      img.src = "images/Thunderstorm.png";
+      img.src = "images/thunderstorms.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Perhaps Netflix & chill on todays agenda.`;
-    } else if (tempDes === `Mist`) {
+    } else if (
+      tempDes === `mist` ||
+      tempDes === `smoke` ||
+      tempDes === `haze` ||
+      tempDes === `sand/ dust whirls` ||
+      tempDes === `fog` ||
+      tempDes === `dust` ||
+      tempDes === `volcanic ash` ||
+      tempDes === `squalls` ||
+      tempDes === `tornado` ||
+      tempDes === `sand`
+    ) {
       let img = document.querySelector("#main-image");
-      img.src = "images/cloudy.png";
+      img.src = "images/atmosphere.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Low visibilty - be safe.`;
-    } else if (tempDes === `Few Clouds`) {
+    } else if (tempDes === `few clouds`) {
       let img = document.querySelector("#main-image");
       img.src = "images/partly-cloudy.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Let the Sun out`;
+    } else if (tempDes === `overcast clouds`) {
+      let img = document.querySelector("#main-image");
+      img.src = "images/clouds.png";
+      let quote = document.querySelector("#quote");
+      quote.innerHTML = `Let the Sun out`;
+    } else if (
+      tempDes === `light snow` ||
+      tempDes === `snow` ||
+      tempDes === `heavy snow` ||
+      tempDes === `sleet` ||
+      tempDes === `light shower sleet` ||
+      tempDes === `shower sleet` ||
+      tempDes === `light rain and snow` ||
+      tempDes === `rain and snow` ||
+      tempDes === `light shower snow` ||
+      tempDes === `shower snow` ||
+      tempDes === `heavy shower snow` ||
+      tempDes === `freezing rain`
+    ) {
+      let img = document.querySelector("#main-image");
+      img.src = "images/snow.png";
+      let quote = document.querySelector("#quote");
+      quote.innerHTML = `Low visibilty - take care.`;
     }
   }
 }
