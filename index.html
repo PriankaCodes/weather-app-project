@@ -22,6 +22,7 @@
             name="cities"
             id="city-name"
             placeholder="Search a City"
+            autocomplete="off"
           />
           <input type="submit" value="Go" id="go-button" />
           <input type="button" value="Current" id="current-button" />
@@ -29,9 +30,10 @@
         <h1 class="city-name">Melbourne</h1>
         <h3 class="day" id="today">
           Sunday
-          <span class="date-month">I 20th June</span>
+          <span class="date-month">| 20th June</span>
           <span class="time">@ 14:02</span>
         </h3>
+        <h3 class="weather-type">Partly Cloudy</h3>
         <div class="row">
           <div class="col-r">
             <img
@@ -44,7 +46,11 @@
         </div>
         <div class="row">
           <div class="col-l">
-            <div class="weather-type">Partly Cloudy</div>
+            <a href="#" class="temperature-c-change" id="celcius-switch">°C </a>
+            <span class="temp-divide">|</span>
+            <a href="#" class="temperature-f-change" id="fahrenheit-switch"
+              >°F</a
+            >
             <div class="temperature-main" id="temperature-main">15°C</div>
             <span class="temperature-high-main" id="temperature-high-main"
               >H:5°
@@ -52,15 +58,7 @@
             <span class="temperature-low-main" id="temperature-low-main"
               >L:5°</span
             >
-            <div>
-              <a href="#" class="temperature-c-change" id="celcius-switch"
-                >°C
-              </a>
-              <span class="temp-divide">I</span>
-              <a href="#" class="temperature-f-change" id="fahrenheit-switch"
-                >°F</a
-              >
-            </div>
+
             <div class="precipitation"></div>
             <div class="humidity">Humidity: 84%</div>
             <div class="wind">Wind: 5 km/h</div>

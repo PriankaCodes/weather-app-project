@@ -1,19 +1,20 @@
-function searchCity(event) {
-  event.preventDefault();
-  let cityName = document.querySelector("#city-name");
-  let currentCityName = document.querySelector(".city-name");
+function search(city) {
   let units = `metric`;
   let apiKey = `4cd86623af1218163bcbc915f42833d3`;
   let apiEnd = `https://api.openweathermap.org/data/2.5/weather`;
-  let apiUrl = `${apiEnd}?q=${cityName.value}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `${apiEnd}?q=${city}&appid=${apiKey}&units=${units}`;
 
   axios.get(apiUrl).then(showTemperature);
 
-  if (cityName.value) {
-    currentCityName.innerHTML = cityName.value;
-  } else {
-    alert(`Enter a City Name`);
+  if (apiUrl === undefined) {
+    alert(`Please enter a City Name`);
   }
+}
+
+function searchCity(event) {
+  event.preventDefault();
+  let cityName = document.querySelector("#city-name");
+  search(cityName.value);
 }
 
 function today() {
@@ -75,11 +76,10 @@ function tempSwitchBack(event) {
 }
 
 function showTemperature(response) {
-  console.log(response);
   let city = response.data.name;
   let cityName = document.querySelector(".city-name");
   cityName.innerHTML = `${city}`;
-  let tempDes = response.data.weather[0].main;
+  let tempDes = response.data.weather[0].description;
   let weatherType = document.querySelector(".weather-type");
   weatherType.innerHTML = `${tempDes}`;
   let temp = Math.round(response.data.main.temp);
@@ -101,17 +101,17 @@ function showTemperature(response) {
   changeImage();
 
   function changeImage() {
-    if (tempDes === `Clouds`) {
+    if (tempDes === `Scattered Clouds`|| tempDes === `Broken Clouds` ) {
       let img = document.querySelector("#main-image");
       img.src = "images/cloudy.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Cloudy skies, with no chance of meatballs.`;
-    } else if (tempDes === `Rain`) {
+    } else if (tempDes === `Shower Rain` || tempDes === `Rain`) {
       let img = document.querySelector("#main-image");
       img.src = "images/rain.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Rain rain go away, come again another day.`;
-    } else if (tempDes === `Clear`) {
+    } else if (tempDes === `Clear Sky`) {
       let img = document.querySelector("#main-image");
       img.src = "images/Sunny.png";
       let quote = document.querySelector("#quote");
@@ -126,9 +126,13 @@ function showTemperature(response) {
       img.src = "images/cloudy.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Low visibilty - be safe.`;
+    } else if (tempDes === `Few Clouds`) {
+      let img = document.querySelector("#main-image");
+      img.src = "images/partly-cloudy.png";
+      let quote = document.querySelector("#quote");
+      quote.innerHTML = `Let the Sun out`;
     }
   }
-}
 
 function showPosition(position) {
   let loc = position.coords;
@@ -146,7 +150,7 @@ function showLocation() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-showLocation();
+search("Japan");
 
 let now = new Date();
 today(new Date());
