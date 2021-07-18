@@ -218,6 +218,27 @@ function showTemperature(response) {
   }
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<ul class="forecast-main">`;
+  let days = ["S", "M", "T", "W", "Th"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `   
+          <li class="forecast-1">
+            <span class="day-m" id="tomorrow">${day}</span>
+            <img src="images/clear-day.png" width="70" alt="Sunshine" />
+            <ul class="forecast">
+              <li class="temperature-high">15°C</li>
+              <li class="temperature-low">4°C</li>
+            </ul>
+          </li>`;
+  });
+  forecastHTML = forecastHTML + `</ul>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function showPosition(position) {
   let loc = position.coords;
   let longitude = loc.longitude.toFixed(2);
@@ -253,5 +274,6 @@ fahrenheitSwitch.fontSize = "80%";
 fahrenheitSwitch.addEventListener("click", displayFTemp);
 
 search("Japan");
+displayForecast();
 
 today(new Date());
