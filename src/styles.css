@@ -54,27 +54,22 @@
   color: #0e3047;
 }
 
-.temperature-c-change {
+.col-l .active {
+  color: #0e3047;
+}
+
+.temperature-c-change,
+.temperature-f-change {
   text-decoration: none;
   cursor: pointer;
   font-size: 22px;
-  color: #0e3047;
-}
-
-.temperature-c-change:visited,
-.temperature-c-change:hover {
   color: grey;
 }
 
-.temperature-f-change {
-  color: grey;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.temperature-f-change:visited,
+.temperature-c-change:hover,
 .temperature-f-change:hover {
-  color: #0e3047;
+  color: coral;
+  text-decoration: none;
 }
 
 .weather-left {

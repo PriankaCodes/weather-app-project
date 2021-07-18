@@ -56,45 +56,65 @@ function today() {
     minutes = `0${minutes}`;
   }
   let todaysDate = document.querySelector("#today");
-  todaysDate.innerHTML = `${day} I ${date} ${month} @ ${hour}:${minutes}`;
+  todaysDate.innerHTML = `${day}, ${date} ${month} @ ${hour}:${minutes}`;
 }
 
-function temp(event) {
+function displayFTemp(event) {
   event.preventDefault();
-  let fMainChange = document.querySelector(".temperature-main");
-  let fLowChange = document.querySelector(".temperature-low-main");
-  fMainChange.innerHTML = `59°F`;
-  fLowChange.innerHTML = `41`;
+  celciusSwitch.classList.remove("active");
+  fahrenheitSwitch.classList.add("active");
+  let fahrenheitTempMain = (celcuisTempMain * 9) / 5 + 32;
+  let fahrenheitTempMax = (celcuisTempMax * 9) / 5 + 32;
+  let fahrenheitTempMin = (celcuisTempMin * 9) / 5 + 32;
+  let fahrenehitWind = (windElement * 9) / 5 + 32;
+  let fMainChange = document.querySelector("#temperature-main");
+  let fMaxChange = document.querySelector("#temperature-high-main");
+  let fLowChange = document.querySelector("#temperature-low-main");
+  let fWind = document.querySelector(".wind");
+  fMainChange.innerHTML = `${Math.round(fahrenheitTempMain)}°F`;
+  fMaxChange.innerHTML = `H:${Math.round(fahrenheitTempMax)}° `;
+  fLowChange.innerHTML = `L:${Math.round(fahrenheitTempMin)}°`;
+  fWind.innerHTML = `Wind: ${Math.round(fahrenehitWind)} m/h`;
 }
 
 function tempSwitchBack(event) {
   event.preventDefault();
+  celciusSwitch.classList.add("active");
+  fahrenheitSwitch.classList.remove("active");
   let cMainChange = document.querySelector("#temperature-main");
+  let cMaxChange = document.querySelector("#temperature-high-main");
   let cLowChange = document.querySelector("#temperature-low-main");
-  cMainChange.innerHTML = `15°C`;
-  cLowChange.innerHTML = `5`;
+  let cWind = document.querySelector(".wind");
+  cMainChange.innerHTML = `${Math.round(celcuisTempMain)}°C`;
+  cMaxChange.innerHTML = `H:${Math.round(celcuisTempMax)}° `;
+  cLowChange.innerHTML = `L:${Math.round(celcuisTempMin)}°`;
+  cWind.innerHTML = `Wind: ${Math.round(windElement)} km/h`;
 }
 
 function showTemperature(response) {
+  celcuisTempMain = response.data.main.temp;
+  celcuisTempMax = response.data.main.temp_max;
+  celcuisTempMin = response.data.main.temp_min;
+  windElement = response.data.wind.speed;
   let city = response.data.name;
   let cityName = document.querySelector(".city-name");
   cityName.innerHTML = `${city}`;
   let tempDes = response.data.weather[0].description;
   let weatherType = document.querySelector(".weather-type");
   weatherType.innerHTML = `${tempDes}`;
-  let temp = Math.round(response.data.main.temp);
+  let temp = Math.round(celcuisTempMain);
   let mainTemp = document.querySelector(".temperature-main");
   mainTemp.innerHTML = `${temp}°C`;
-  let highTemp = Math.round(response.data.main.temp_max);
+  let highTemp = Math.round(celcuisTempMax);
   let maxTemp = document.querySelector(".temperature-high-main");
   maxTemp.innerHTML = `H:${highTemp}° `;
-  let lowTemp = Math.round(response.data.main.temp_min);
+  let lowTemp = Math.round(celcuisTempMin);
   let minTemp = document.querySelector(".temperature-low-main");
   minTemp.innerHTML = `L:${lowTemp}°`;
   let humidity = Math.round(response.data.main.humidity);
   let humidityToday = document.querySelector(".humidity");
   humidityToday.innerHTML = `Humidity: ${humidity}%`;
-  let wind = Math.round(response.data.wind.speed);
+  let wind = Math.round(windElement);
   let windSpeed = document.querySelector(".wind");
   windSpeed.innerHTML = `Wind: ${wind} km/h`;
 
@@ -116,7 +136,14 @@ function showTemperature(response) {
       tempDes === `extreme rain` ||
       tempDes === `light intensity shower rain` ||
       tempDes === `heavy intensity shower rain` ||
-      tempDes === `ragged shower rain`
+      tempDes === `ragged shower rain` ||
+      tempDes === `light intensity drizzle` ||
+      tempDes === `drizzle` ||
+      tempDes === `drizzle rain` ||
+      tempDes === `heavy intensity drizzle rain` ||
+      tempDes === `shower rain and drizzle` ||
+      tempDes === `heavy shower rain and drizzle` ||
+      tempDes === `shower drizzle`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/rain.png";
@@ -207,9 +234,10 @@ function showLocation() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-search("Japan");
-
-today(new Date());
+let celcuisTempMain = null;
+let celcuisTempMax = null;
+let celcuisTempMin = null;
+let windElement = null;
 
 let cities = document.querySelector("#search-city");
 cities.addEventListener("submit", searchCity);
@@ -220,6 +248,10 @@ currentLocation.addEventListener("click", showLocation);
 let celciusSwitch = document.querySelector("#celcius-switch");
 celciusSwitch.addEventListener("click", tempSwitchBack);
 
-let tempChangeButton = document.querySelector(".temperature-f-change");
-tempChangeButton.fontSize = "80%";
-tempChangeButton.addEventListener("click", temp);
+let fahrenheitSwitch = document.querySelector("#fahrenheit-switch");
+fahrenheitSwitch.fontSize = "80%";
+fahrenheitSwitch.addEventListener("click", displayFTemp);
+
+search("Japan");
+
+today(new Date());
