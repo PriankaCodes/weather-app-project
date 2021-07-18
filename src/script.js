@@ -91,6 +91,36 @@ function tempSwitchBack(event) {
   cWind.innerHTML = `Wind: ${Math.round(windElement)} km/h`;
 }
 
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<ul class="forecast-main">`;
+  let days = ["S", "M", "T", "W", "Th"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `   
+          <li class="forecast-day">
+            <span class="day-m" id="tomorrow">${day}</span>
+            <img src="images/clear-day.png" width="70" alt="Sunshine" />
+            <ul class="forecast">
+              <li class="temperature-high">15°C</li>
+              <li class="temperature-low">4°C</li>
+            </ul>
+          </li>`;
+  });
+  forecastHTML = forecastHTML + `</ul>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let units = `metric`;
+  let apiKey = `4cd86623af1218163bcbc915f42833d3`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&${units}`;
+
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function showTemperature(response) {
   celcuisTempMain = response.data.main.temp;
   celcuisTempMax = response.data.main.temp_max;
@@ -117,6 +147,8 @@ function showTemperature(response) {
   let wind = Math.round(windElement);
   let windSpeed = document.querySelector(".wind");
   windSpeed.innerHTML = `Wind: ${wind} km/h`;
+
+  getForecast(response.data.coord);
 
   changeImage();
 
@@ -218,27 +250,6 @@ function showTemperature(response) {
   }
 }
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<ul class="forecast-main">`;
-  let days = ["S", "M", "T", "W", "Th"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `   
-          <li class="forecast-1">
-            <span class="day-m" id="tomorrow">${day}</span>
-            <img src="images/clear-day.png" width="70" alt="Sunshine" />
-            <ul class="forecast">
-              <li class="temperature-high">15°C</li>
-              <li class="temperature-low">4°C</li>
-            </ul>
-          </li>`;
-  });
-  forecastHTML = forecastHTML + `</ul>`;
-  forecastElement.innerHTML = forecastHTML;
-}
-
 function showPosition(position) {
   let loc = position.coords;
   let longitude = loc.longitude.toFixed(2);
@@ -274,6 +285,5 @@ fahrenheitSwitch.fontSize = "80%";
 fahrenheitSwitch.addEventListener("click", displayFTemp);
 
 search("Japan");
-displayForecast();
 
 today(new Date());

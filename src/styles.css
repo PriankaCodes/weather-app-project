@@ -203,30 +203,13 @@ ul img {
   color: #0e3047;
 }
 
-.forecast-2,
-.forecast-3,
-.forecast-4 {
-  margin: 10px 10px 10px 0px;
-  padding: 0px 10px 0px 15px;
-  width: 150px;
-}
-
-.forecast-1 {
+.forecast-day {
   margin: 5px 10px 10px 0px;
   padding: 0px 10px 0px 15px;
   width: 150px;
 }
 
-.forecast-5 {
-  margin: 5px 10px 10px 0px;
-  padding: 0px 10px 0px 15px;
-  width: 150px;
-}
-.forecast-1:hover,
-.forecast-2:hover,
-.forecast-3:hover,
-.forecast-4:hover,
-.forecast-5:hover {
+.forecast-1:hover {
   background-color: #ffe6a6;
   box-shadow: 0 4px 8px 0 rgba(134, 134, 134, 0.2),
     0 6px 20px 0 rgba(122, 122, 122, 0.19);
