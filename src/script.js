@@ -135,15 +135,17 @@ function displayForecast(response) {
       icon === `10n`
     ) {
       return "images/rain.png";
-    } else if (icon === `01d` || icon === `01n`) {
+    } else if (icon === `01d`) {
       return "images/clear-day.png";
+    } else if (icon === `01n` || icon === `04n`) {
+      return "images/clear-night.png";
     } else if (icon === `11d` || icon === `11n`) {
       return "images/thunderstorms.png";
     } else if (icon === `50d` || icon === `50n`) {
       return "images/atmosphere.png";
     } else if (icon === `02d` || icon === `02n`) {
       return "images/partly-cloudy.png";
-    } else if (icon === `04d` || icon === `04n`) {
+    } else if (icon === `04d`) {
       return "images/clouds.png";
     } else if (icon === `13d` || icon === `13n`) {
       return "images/snow.png";
@@ -160,10 +162,12 @@ function getForecast(coordinates) {
 }
 
 function showTemperature(response) {
+  console.log(response);
   celcuisTempMain = response.data.main.temp;
   celcuisTempMax = response.data.main.temp_max;
   celcuisTempMin = response.data.main.temp_min;
   windElement = response.data.wind.speed;
+  let weatherIcon = response.data.weather[0].icon;
   let city = response.data.name;
   let cityName = document.querySelector(".city-name");
   cityName.innerHTML = `${city}`;
@@ -188,98 +192,55 @@ function showTemperature(response) {
 
   getForecast(response.data.coord);
 
-  changeImage();
+  changeImage(weatherIcon);
 
-  function changeImage() {
-    if (icon === `scattered clouds` || icon === `broken clouds`) {
+  function changeImage(icon) {
+    if (icon === `03d` || icon === `03n` || icon === `04d` || icon === `04n`) {
       let img = document.querySelector("#main-image");
       img.src = "images/scattered-clouds.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Cloudy skies, with no chance of meatballs.`;
     } else if (
-      icon === `shower rain` ||
-      icon === `rain` ||
-      icon === `light rain` ||
-      icon === `moderate rain` ||
-      icon === `heavy intensity rain` ||
-      icon === `very heavy rain` ||
-      icon === `extreme rain` ||
-      icon === `light intensity shower rain` ||
-      icon === `heavy intensity shower rain` ||
-      icon === `ragged shower rain` ||
-      icon === `light intensity drizzle` ||
-      icon === `drizzle` ||
-      icon === `drizzle rain` ||
-      icon === `heavy intensity drizzle rain` ||
-      icon === `shower rain and drizzle` ||
-      icon === `heavy shower rain and drizzle` ||
-      icon === `shower drizzle`
+      icon === `09d` ||
+      icon === `09n` ||
+      icon === `10d` ||
+      icon === `10n`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/rain.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Rain rain go away, come again another day.`;
-    } else if (icon === `clear sky`) {
+    } else if (icon === `01d`) {
       let img = document.querySelector("#main-image");
       img.src = "images/clear-day.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Clear skies, sounds like my kind of day.`;
-    } else if (
-      icon === `thunderstorm` ||
-      icon === `thunderstorm with light rain` ||
-      icon === `thunderstorm with rain` ||
-      icon === `thunderstorm with heavy rain` ||
-      icon === `light thunderstorm` ||
-      icon === `heavy thunderstorm` ||
-      icon === `ragged thunderstorm` ||
-      icon === `thunderstorm with light drizzle` ||
-      icon === `thunderstorm with drizzle` ||
-      icon === `thunderstorm with heavy drizzle`
-    ) {
+    } else if (icon === `01n` || icon === `02n` || icon === `04n`) {
+      let img = document.querySelector("#main-image");
+      img.src = "images/clear-night.png";
+      let quote = document.querySelector("#quote");
+      quote.innerHTML = `Clear skies, sounds like my kind of night.`;
+    } else if (icon === `11d` || icon === `11n`) {
       let img = document.querySelector("#main-image");
       img.src = "images/thunderstorms.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Perhaps Netflix & chill on todays agenda.`;
-    } else if (
-      icon === `mist` ||
-      icon === `smoke` ||
-      icon === `haze` ||
-      icon === `sand/ dust whirls` ||
-      icon === `fog` ||
-      icon === `dust` ||
-      icon === `volcanic ash` ||
-      icon === `squalls` ||
-      icon === `tornado` ||
-      icon === `sand`
-    ) {
+    } else if (icon === `50d` || icon === `50n`) {
       let img = document.querySelector("#main-image");
       img.src = "images/atmosphere.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Today I jumped at the fog, but I mist`;
-    } else if (icon === `few clouds`) {
+    } else if (icon === `02d`) {
       let img = document.querySelector("#main-image");
       img.src = "images/partly-cloudy.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Tomorrow, tomorrow, the Sun will come out tomorrow (hopefully)`;
-    } else if (icon === `overcast clouds`) {
+    } else if (icon === `04d`) {
       let img = document.querySelector("#main-image");
       img.src = "images/clouds.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `I am trying to think of a weather pun, but my mind is kinda cloudy`;
-    } else if (
-      icon === `light snow` ||
-      icon === `snow` ||
-      icon === `heavy snow` ||
-      icon === `sleet` ||
-      icon === `light shower sleet` ||
-      icon === `shower sleet` ||
-      icon === `light rain and snow` ||
-      icon === `rain and snow` ||
-      icon === `light shower snow` ||
-      icon === `shower snow` ||
-      icon === `heavy shower snow` ||
-      icon === `freezing rain`
-    ) {
+    } else if (icon === `13d` || icon === `13n`) {
       let img = document.querySelector("#main-image");
       img.src = "images/snow.png";
       let quote = document.querySelector("#quote");
