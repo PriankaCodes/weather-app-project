@@ -72,8 +72,8 @@ function displayFTemp(event) {
   let fLowChange = document.querySelector("#temperature-low-main");
   let fWind = document.querySelector(".wind");
   fMainChange.innerHTML = `${Math.round(fahrenheitTempMain)}°F`;
-  fMaxChange.innerHTML = `H:${Math.round(fahrenheitTempMax)}° `;
-  fLowChange.innerHTML = `L:${Math.round(fahrenheitTempMin)}°`;
+  fMaxChange.innerHTML = `${Math.round(fahrenheitTempMax)}° `;
+  fLowChange.innerHTML = `${Math.round(fahrenheitTempMin)}°`;
   fWind.innerHTML = `Wind: ${Math.round(fahrenehitWind)} m/h`;
 }
 
@@ -86,37 +86,75 @@ function tempSwitchBack(event) {
   let cLowChange = document.querySelector("#temperature-low-main");
   let cWind = document.querySelector(".wind");
   cMainChange.innerHTML = `${Math.round(celcuisTempMain)}°C`;
-  cMaxChange.innerHTML = `H:${Math.round(celcuisTempMax)}° `;
-  cLowChange.innerHTML = `L:${Math.round(celcuisTempMin)}°`;
+  cMaxChange.innerHTML = `${Math.round(celcuisTempMax)}° `;
+  cLowChange.innerHTML = `${Math.round(celcuisTempMin)}°`;
   cWind.innerHTML = `Wind: ${Math.round(windElement)} km/h`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [`S`, `M`, `T`, `W`, `Th`, `F`, `S`];
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<ul class="forecast-main">`;
-  let days = ["S", "M", "T", "W", "Th"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `   
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      let changeImage = changeImageForecast(forecastDay.weather[0].icon);
+      forecastHTML =
+        forecastHTML +
+        `   
           <li class="forecast-day">
-            <span class="day-m" id="tomorrow">${day}</span>
-            <img src="images/clear-day.png" width="70" alt="Sunshine" />
+            <span class="day-m">${formatDay(forecastDay.dt)}</span>
+            <img src=${changeImage} id="change-image" width="70" alt="Sunshine" />
             <ul class="forecast">
-              <li class="temperature-high">15°C</li>
-              <li class="temperature-low">4°C</li>
+              <li class="temperature-high">${Math.round(
+                forecastDay.temp.max
+              )}°C</li>
+              <li class="temperature-low">${Math.round(
+                forecastDay.temp.min
+              )}°C</li>
             </ul>
           </li>`;
+    }
   });
   forecastHTML = forecastHTML + `</ul>`;
   forecastElement.innerHTML = forecastHTML;
+
+  function changeImageForecast(icon) {
+    if (icon === `03d` || icon === `03n` || icon === `04d` || icon === `04n`) {
+      return "images/scattered-clouds.png";
+    } else if (
+      icon === `09d` ||
+      icon === `09n` ||
+      icon === `10d` ||
+      icon === `10n`
+    ) {
+      return "images/rain.png";
+    } else if (icon === `01d` || icon === `01n`) {
+      return "images/clear-day.png";
+    } else if (icon === `11d` || icon === `11n`) {
+      return "images/thunderstorms.png";
+    } else if (icon === `50d` || icon === `50n`) {
+      return "images/atmosphere.png";
+    } else if (icon === `02d` || icon === `02n`) {
+      return "images/partly-cloudy.png";
+    } else if (icon === `04d` || icon === `04n`) {
+      return "images/clouds.png";
+    } else if (icon === `13d` || icon === `13n`) {
+      return "images/snow.png";
+    }
+  }
 }
 
 function getForecast(coordinates) {
   let units = `metric`;
   let apiKey = `4cd86623af1218163bcbc915f42833d3`;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
 
   axios.get(apiUrl).then(displayForecast);
 }
@@ -129,18 +167,18 @@ function showTemperature(response) {
   let city = response.data.name;
   let cityName = document.querySelector(".city-name");
   cityName.innerHTML = `${city}`;
-  let tempDes = response.data.weather[0].description;
+  let icon = response.data.weather[0].description;
   let weatherType = document.querySelector(".weather-type");
-  weatherType.innerHTML = `${tempDes}`;
+  weatherType.innerHTML = `${icon}`;
   let temp = Math.round(celcuisTempMain);
   let mainTemp = document.querySelector(".temperature-main");
   mainTemp.innerHTML = `${temp}°C`;
   let highTemp = Math.round(celcuisTempMax);
   let maxTemp = document.querySelector(".temperature-high-main");
-  maxTemp.innerHTML = `H:${highTemp}° `;
+  maxTemp.innerHTML = `${highTemp}° `;
   let lowTemp = Math.round(celcuisTempMin);
   let minTemp = document.querySelector(".temperature-low-main");
-  minTemp.innerHTML = `L:${lowTemp}°`;
+  minTemp.innerHTML = `${lowTemp}°`;
   let humidity = Math.round(response.data.main.humidity);
   let humidityToday = document.querySelector(".humidity");
   humidityToday.innerHTML = `Humidity: ${humidity}%`;
@@ -153,99 +191,99 @@ function showTemperature(response) {
   changeImage();
 
   function changeImage() {
-    if (tempDes === `scattered clouds` || tempDes === `broken clouds`) {
+    if (icon === `scattered clouds` || icon === `broken clouds`) {
       let img = document.querySelector("#main-image");
       img.src = "images/scattered-clouds.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Cloudy skies, with no chance of meatballs.`;
     } else if (
-      tempDes === `shower rain` ||
-      tempDes === `rain` ||
-      tempDes === `light rain` ||
-      tempDes === `moderate rain` ||
-      tempDes === `heavy intensity rain` ||
-      tempDes === `very heavy rain` ||
-      tempDes === `extreme rain` ||
-      tempDes === `light intensity shower rain` ||
-      tempDes === `heavy intensity shower rain` ||
-      tempDes === `ragged shower rain` ||
-      tempDes === `light intensity drizzle` ||
-      tempDes === `drizzle` ||
-      tempDes === `drizzle rain` ||
-      tempDes === `heavy intensity drizzle rain` ||
-      tempDes === `shower rain and drizzle` ||
-      tempDes === `heavy shower rain and drizzle` ||
-      tempDes === `shower drizzle`
+      icon === `shower rain` ||
+      icon === `rain` ||
+      icon === `light rain` ||
+      icon === `moderate rain` ||
+      icon === `heavy intensity rain` ||
+      icon === `very heavy rain` ||
+      icon === `extreme rain` ||
+      icon === `light intensity shower rain` ||
+      icon === `heavy intensity shower rain` ||
+      icon === `ragged shower rain` ||
+      icon === `light intensity drizzle` ||
+      icon === `drizzle` ||
+      icon === `drizzle rain` ||
+      icon === `heavy intensity drizzle rain` ||
+      icon === `shower rain and drizzle` ||
+      icon === `heavy shower rain and drizzle` ||
+      icon === `shower drizzle`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/rain.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Rain rain go away, come again another day.`;
-    } else if (tempDes === `clear sky`) {
+    } else if (icon === `clear sky`) {
       let img = document.querySelector("#main-image");
       img.src = "images/clear-day.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Clear skies, sounds like my kind of day.`;
     } else if (
-      tempDes === `thunderstorm` ||
-      tempDes === `thunderstorm with light rain` ||
-      tempDes === `thunderstorm with rain` ||
-      tempDes === `thunderstorm with heavy rain` ||
-      tempDes === `light thunderstorm` ||
-      tempDes === `heavy thunderstorm` ||
-      tempDes === `ragged thunderstorm` ||
-      tempDes === `thunderstorm with light drizzle` ||
-      tempDes === `thunderstorm with drizzle` ||
-      tempDes === `thunderstorm with heavy drizzle`
+      icon === `thunderstorm` ||
+      icon === `thunderstorm with light rain` ||
+      icon === `thunderstorm with rain` ||
+      icon === `thunderstorm with heavy rain` ||
+      icon === `light thunderstorm` ||
+      icon === `heavy thunderstorm` ||
+      icon === `ragged thunderstorm` ||
+      icon === `thunderstorm with light drizzle` ||
+      icon === `thunderstorm with drizzle` ||
+      icon === `thunderstorm with heavy drizzle`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/thunderstorms.png";
       let quote = document.querySelector("#quote");
       quote.innerHTML = `Perhaps Netflix & chill on todays agenda.`;
     } else if (
-      tempDes === `mist` ||
-      tempDes === `smoke` ||
-      tempDes === `haze` ||
-      tempDes === `sand/ dust whirls` ||
-      tempDes === `fog` ||
-      tempDes === `dust` ||
-      tempDes === `volcanic ash` ||
-      tempDes === `squalls` ||
-      tempDes === `tornado` ||
-      tempDes === `sand`
+      icon === `mist` ||
+      icon === `smoke` ||
+      icon === `haze` ||
+      icon === `sand/ dust whirls` ||
+      icon === `fog` ||
+      icon === `dust` ||
+      icon === `volcanic ash` ||
+      icon === `squalls` ||
+      icon === `tornado` ||
+      icon === `sand`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/atmosphere.png";
       let quote = document.querySelector("#quote");
-      quote.innerHTML = `Low visibilty - be safe.`;
-    } else if (tempDes === `few clouds`) {
+      quote.innerHTML = `Today I jumped at the fog, but I mist`;
+    } else if (icon === `few clouds`) {
       let img = document.querySelector("#main-image");
       img.src = "images/partly-cloudy.png";
       let quote = document.querySelector("#quote");
-      quote.innerHTML = `Let the Sun out`;
-    } else if (tempDes === `overcast clouds`) {
+      quote.innerHTML = `Tomorrow, tomorrow, the Sun will come out tomorrow (hopefully)`;
+    } else if (icon === `overcast clouds`) {
       let img = document.querySelector("#main-image");
       img.src = "images/clouds.png";
       let quote = document.querySelector("#quote");
-      quote.innerHTML = `Let the Sun out`;
+      quote.innerHTML = `I am trying to think of a weather pun, but my mind is kinda cloudy`;
     } else if (
-      tempDes === `light snow` ||
-      tempDes === `snow` ||
-      tempDes === `heavy snow` ||
-      tempDes === `sleet` ||
-      tempDes === `light shower sleet` ||
-      tempDes === `shower sleet` ||
-      tempDes === `light rain and snow` ||
-      tempDes === `rain and snow` ||
-      tempDes === `light shower snow` ||
-      tempDes === `shower snow` ||
-      tempDes === `heavy shower snow` ||
-      tempDes === `freezing rain`
+      icon === `light snow` ||
+      icon === `snow` ||
+      icon === `heavy snow` ||
+      icon === `sleet` ||
+      icon === `light shower sleet` ||
+      icon === `shower sleet` ||
+      icon === `light rain and snow` ||
+      icon === `rain and snow` ||
+      icon === `light shower snow` ||
+      icon === `shower snow` ||
+      icon === `heavy shower snow` ||
+      icon === `freezing rain`
     ) {
       let img = document.querySelector("#main-image");
       img.src = "images/snow.png";
       let quote = document.querySelector("#quote");
-      quote.innerHTML = `Low visibilty - take care.`;
+      quote.innerHTML = `Do you wanna build a Snow Man?`;
     }
   }
 }

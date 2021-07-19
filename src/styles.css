@@ -177,17 +177,15 @@ li .temperature-low,
 }
 
 .day-m {
-  padding-right: 4.72px;
+  display: inline-block;
+  width: 26px;
+  height: 17px;
+  text-align: center;
 }
 
-.day-t {
-  padding-right: 10.84px;
-}
-.day-w {
-  padding-right: 4.62px;
-}
-.day-f {
-  padding-right: 11px;
+.temperature-low,
+.temperature-low-main {
+  color: gray;
 }
 
 ul img {
