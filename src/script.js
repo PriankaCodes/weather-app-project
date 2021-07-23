@@ -67,13 +67,16 @@ function displayFTemp(event) {
   let fahrenheitTempMax = (celcuisTempMax * 9) / 5 + 32;
   let fahrenheitTempMin = (celcuisTempMin * 9) / 5 + 32;
   let fahrenehitWind = (windElement * 9) / 5 + 32;
+  let farenheitFeelsLike = (feelsLikeElement * 9) / 5 + 32;
   let fMainChange = document.querySelector("#temperature-main");
   let fMaxChange = document.querySelector("#temperature-high-main");
   let fLowChange = document.querySelector("#temperature-low-main");
   let fWind = document.querySelector(".wind");
+  let fFeelsLike = document.querySelector(".feels-like");
   fMainChange.innerHTML = `${Math.round(fahrenheitTempMain)}°F`;
   fMaxChange.innerHTML = `${Math.round(fahrenheitTempMax)}° `;
   fLowChange.innerHTML = `${Math.round(fahrenheitTempMin)}°`;
+  fFeelsLike.innerHTML = `Feels Like: ${Math.round(farenheitFeelsLike)}°`;
   fWind.innerHTML = `Wind: ${Math.round(fahrenehitWind)} m/h`;
 }
 
@@ -84,10 +87,12 @@ function tempSwitchBack(event) {
   let cMainChange = document.querySelector("#temperature-main");
   let cMaxChange = document.querySelector("#temperature-high-main");
   let cLowChange = document.querySelector("#temperature-low-main");
+  let cFeelsLike = document.querySelector(".feels-like");
   let cWind = document.querySelector(".wind");
   cMainChange.innerHTML = `${Math.round(celcuisTempMain)}°C`;
   cMaxChange.innerHTML = `${Math.round(celcuisTempMax)}° `;
   cLowChange.innerHTML = `${Math.round(celcuisTempMin)}°`;
+  cFeelsLike.innerHTML = `Feels Like: ${Math.round(feelsLikeElement)}°`;
   cWind.innerHTML = `Wind: ${Math.round(windElement)} km/h`;
 }
 
@@ -105,6 +110,10 @@ function displayForecast(response) {
   forecast.forEach(function (forecastDay, index) {
     if (index < 5) {
       let changeImage = changeImageForecast(forecastDay.weather[0].icon);
+      let celsiusForecastHigh = Math.round(forecastDay.temp.max);
+      let celsiusForecastLow = Math.round(forecastDay.temp.min);
+      let celsiusForecastHighString = `<li class="temperature-high">${celsiusForecastHigh}°C</li>`;
+      let celsiusForecastLowString = `<li class="temperature-low">${celsiusForecastLow}°C</li>`;
       forecastHTML =
         forecastHTML +
         `   
@@ -112,12 +121,8 @@ function displayForecast(response) {
             <span class="day-m">${formatDay(forecastDay.dt)}</span>
             <img src=${changeImage} id="change-image" width="70" alt="Sunshine" />
             <ul class="forecast">
-              <li class="temperature-high">${Math.round(
-                forecastDay.temp.max
-              )}°C</li>
-              <li class="temperature-low">${Math.round(
-                forecastDay.temp.min
-              )}°C</li>
+              ${celsiusForecastHighString}
+              ${celsiusForecastLowString}
             </ul>
           </li>`;
     }
@@ -167,6 +172,7 @@ function showTemperature(response) {
   celcuisTempMax = response.data.main.temp_max;
   celcuisTempMin = response.data.main.temp_min;
   windElement = response.data.wind.speed;
+  feelsLikeElement = response.data.main.feels_like;
   let weatherIcon = response.data.weather[0].icon;
   let city = response.data.name;
   let cityName = document.querySelector(".city-name");
@@ -183,6 +189,9 @@ function showTemperature(response) {
   let lowTemp = Math.round(celcuisTempMin);
   let minTemp = document.querySelector(".temperature-low-main");
   minTemp.innerHTML = `${lowTemp}°`;
+  let feelsLike = Math.round(feelsLikeElement);
+  let feelsLikeToday = document.querySelector(".feels-like");
+  feelsLikeToday.innerHTML = `Feels Like: ${feelsLike}°`;
   let humidity = Math.round(response.data.main.humidity);
   let humidityToday = document.querySelector(".humidity");
   humidityToday.innerHTML = `Humidity: ${humidity}%`;
@@ -269,6 +278,7 @@ let celcuisTempMain = null;
 let celcuisTempMax = null;
 let celcuisTempMin = null;
 let windElement = null;
+let feelsLikeElement = null;
 
 let cities = document.querySelector("#search-city");
 cities.addEventListener("submit", searchCity);
@@ -283,6 +293,6 @@ let fahrenheitSwitch = document.querySelector("#fahrenheit-switch");
 fahrenheitSwitch.fontSize = "80%";
 fahrenheitSwitch.addEventListener("click", displayFTemp);
 
-search("Japan");
+search("Tokyo");
 
 today(new Date());

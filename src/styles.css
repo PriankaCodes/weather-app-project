@@ -145,7 +145,7 @@ p {
 
 li .temperature-high,
 li .temperature-low,
-.precipitation,
+.feels-like,
 .humidity,
 .wind,
 .quote,
@@ -207,10 +207,10 @@ ul img {
   width: 150px;
 }
 
-.forecast-1:hover {
-  background-color: #ffe6a6;
-  box-shadow: 0 4px 8px 0 rgba(134, 134, 134, 0.2),
-    0 6px 20px 0 rgba(122, 122, 122, 0.19);
+.forecast-day:hover {
+  background-color: #fdde90;
+  box-shadow: 0 4px 8px 0 rgba(255, 184, 126, 0.3),
+    0 6px 20px 0 rgba(255, 186, 58, 0.3);
   padding: 0px 10px 0px 15px;
   border-radius: 20px;
   transition: ease-in-out 150ms;
