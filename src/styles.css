@@ -16,7 +16,7 @@ body {
   width: 600px;
   height: 400px;
   border: solid 3px coral;
-  border-radius: 30px;
+  border-radius: 15px;
   background: #fceabb;
   background: -webkit-linear-gradient(right, #ffc061c5, #fff1cd);
   background: linear-gradient(right, #ffc061c5, #fff1cd);
@@ -218,7 +218,7 @@ ul img {
   box-shadow: 0 4px 8px 0 rgba(255, 185, 119, 0.3),
     0 6px 20px 0 rgba(197, 159, 110, 0.2);
   padding: 0px 10px 0px 15px;
-  border-radius: 20px;
+  border-radius: 10px;
   transition: ease-in-out 150ms;
 }
 
